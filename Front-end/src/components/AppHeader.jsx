@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 export default function AppHeader() {
     return (
-        <header className="bg-(--color-lion)">
+        <header className="">
             <div className="m-auto w-4/5 grid grid-cols-2">
 
                 <NavLink to={'/'} className="logo p-4 basis-1/4">logo</NavLink>

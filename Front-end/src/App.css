@@ -5,9 +5,9 @@
     --darker: black;
     --color-honey: #F1FFE7;
     --color-light-green: #A9FDAC;
-    --color-brunswick-green: #29524A;
+    --color-brunswick-green: rgb(41, 82, 74);
     --color-black-bean: #3D0C11;
-    --color-lion: #C29979;
+    --color-lion: rgb(194, 153, 121);
 }
 
 body {
@@ -31,6 +31,14 @@ body::before {
     background-color: var(--color-lion);
     opacity: 0.5;
     z-index: -1;
+}
+
+header {
+    background-color: rgb(41, 82, 74, 0.5);
+}
+
+footer {
+    background-color: rgb(41, 82, 74, 0.5);
 }
 
 main {
