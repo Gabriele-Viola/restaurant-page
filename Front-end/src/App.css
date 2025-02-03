@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+:root {
+    --light: white;
+    --darker: black;
+    --color-honey: #F1FFE7;
+    --color-light-green: #A9FDAC;
+    --color-brunswick-green: #29524A;
+    --color-black-bean: #3D0C11;
+    --color-lion: #C29979;
+}
+
+body {
+    background-color: var(--color-honey);
+}

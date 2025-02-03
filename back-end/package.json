@@ -1,0 +1,18 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "back-end-restaurant",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch --env-file=.env app.js"
+  },
+  "author": "gabrieleviola",
+  "license": "ISC",
+  "dependencies": {
+    "@tailwindcss/vite": "^4.0.3",
+    "express": "^4.21.2",
+    "mysql2": "^3.12.0",
+    "tailwindcss": "^4.0.3"
+  }
+}
