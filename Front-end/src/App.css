@@ -11,5 +11,28 @@
 }
 
 body {
-    background-color: var(--color-honey);
+    background-image: url("../public/download.jfif");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-lion);
+    opacity: 0.5;
+    z-index: -1;
+}
+
+main {
+    min-height: calc(100vh - 129px);
 }
