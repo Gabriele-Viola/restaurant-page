@@ -11,7 +11,7 @@
 }
 
 body {
-    background-image: url("../public/download.jfif");
+    background-image: url("/download.jfif");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

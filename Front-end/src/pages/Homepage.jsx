@@ -20,17 +20,17 @@ export default function HomePage() {
                             initial={{ x: "100vw", opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{ type: "tween", ease: 'easeOut', duration: 0.8 }}>
-                            <div className="bg-pink-400 col-span-2 rounded-tl-2xl h-30 overflow-hidden">
-                                <img src="./homeimag/fieno.jfif" alt="" />
+                            <div className="bg-pink-400 col-span-2 rounded-tl-2xl h-30 overflow-hidden shadow-2xl">
+                                <img className="w-full h-full object-cover" src="/homeimag/fieno.jfif" alt="" />
                             </div>
                             <div className="bg-pink-400 rounded-tr-2xl h-30 overflow-hidden">
-                                <img src="./homeimag/ortaggi.jfif" alt="" />
+                                <img className="w-full h-full object-cover" src="/homeimag/ortaggi.jfif" alt="" />
                             </div>
-                            <div className="bg-pink-400 rounded-bl-2xl h-30 overflow-hidden">
-                                <img src="./homeimag/bosco.jfif" alt="" />
+                            <div className="bg-pink-400 h-30 overflow-hidden">
+                                <img className="w-full h-full object-cover" src="/homeimag/bosco.jfif" alt="" />
                             </div>
                             <div className="bg-pink-400 col-span-2 rounded-br-2xl h-30 overflow-hidden">
-                                <img src="./homeimag/pesce.jfif" alt="" />
+                                <img className="w-full h-full object-cover" src="/homeimag/pesce.jfif" alt="" />
                             </div>
                         </motion.div>
 
@@ -70,22 +70,22 @@ export default function HomePage() {
                     <h1 className="w-4/5 m-auto mb-25 mt-12 text-5xl">il nostro Staff</h1>
                     <div className="w-4/5 m-auto grid grid-cols-8 gap-3 bg-green-950 rounded-l-[200px] rounded-r-[200px] overflow-hidden">
                         <div className="h-40 col-span-1 bg-green-600  overflow-hidden">
-                            <img className="w-full h-full object-cover object-center" src="./staff-images/chef1.jfif" alt="" />
+                            <img className="w-full h-full object-cover object-center" src="/staff-images/chef1.jfif" alt="" />
 
                         </div>
                         <div className="h-40 col-span-2 bg-green-500 overflow-hidden">
-                            <img className="w-full h-full object-cover object-[50%_18%]" src="./staff-images/chef4.jfif" alt="" />
+                            <img className="w-full h-full object-cover object-[50%_18%]" src="/staff-images/chef4.jfif" alt="" />
 
                         </div>
                         <div className="h-40 col-span-2 bg-cyan-500 overflow-hidden">
-                            <img className="w-full h-full object-cover object-center" src="./staff-images/chef2.jfif" alt="" />
+                            <img className="w-full h-full object-cover object-center" src="/staff-images/chef2.jfif" alt="" />
                         </div>
                         <div className="h-40 col-span-2 bg-green-500 overflow-hidden">
-                            <img className="w-full h-full object-cover object-[50%_10%]" src="./staff-images/chef3.jfif" alt="" />
+                            <img className="w-full h-full object-cover object-[50%_10%]" src="/staff-images/chef3.jfif" alt="" />
 
                         </div>
                         <div className="h-40 col-span-1 bg-green-600  overflow-hidden">
-                            <img className="w-full h-full object-cover object-center" src="./staff-images/chef5.jfif" alt="" />
+                            <img className="w-full h-full object-cover object-center" src="/staff-images/chef5.jfif" alt="" />
 
                         </div>
 
