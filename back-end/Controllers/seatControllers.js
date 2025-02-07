@@ -1,11 +1,9 @@
 const connection = require("../db/connection")
 
 function indexSeat(req, res) {
-    const sqlTables = 'SELECT * FROM project_returant.tavoli'
-    const sqlBooking = 'SELECT * FROM project_returant.prenotazioni'
-    const sqlRooms = 'SELECT * FROM project_returant.sale'
 
     const sql = 'SELECT sale.id AS room_id,sale.nome_sala AS room_name, tavoli.id AS table_id, tavoli.posti AS seats, SUM(tavoli.posti) OVER (PARTITION BY sale.id) AS total_seats FROM project_returant.sale sale LEFT JOIN project_returant.tavoli tavoli ON tavoli.id_sala = sale.id '
+    const sqlBookings = 'SELECT * FROM project_returant.prenotazioni'
 
     connection.query(sql, (err, result) => {
         if (err) return res.status(500).json({ message: 'Somthing went wrong' })
@@ -33,9 +31,26 @@ function indexSeat(req, res) {
             }
             return allRooms
         }, [])
-        res.status(200).json({
-            data: rooms,
-            count: rooms.length
+        connection.query(sqlBookings, (err, result) => {
+            if (err) return res.status(500).json({ message: 'error on booking' })
+            const bookings = result
+            const roomsData = rooms.map(room => {
+
+                const totalBookedSeats = bookings.filter(booking => booking.sala == room.room_id).reduce((allSeat, booking) => allSeat + booking.posti, 0)
+
+                const availableSeats = room.total_seats - totalBookedSeats
+                return {
+                    ...room,
+                    availableSeats,
+                }
+            })
+
+            res.status(200).json({
+                data: roomsData,
+                count: roomsData.length
+            })
+
+
         })
 
 
