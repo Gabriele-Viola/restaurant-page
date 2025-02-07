@@ -5,37 +5,43 @@ function indexSeat(req, res) {
     const sqlBooking = 'SELECT * FROM project_returant.prenotazioni'
     const sqlRooms = 'SELECT * FROM project_returant.sale'
 
+    const sql = 'SELECT sale.id AS room_id,sale.nome_sala AS room_name, tavoli.id AS table_id, tavoli.posti AS seats, SUM(tavoli.posti) OVER (PARTITION BY sale.id) AS total_seats FROM project_returant.sale sale LEFT JOIN project_returant.tavoli tavoli ON tavoli.id_sala = sale.id '
 
-    connection.query(sqlTables, (err, tavoli) => {
-        if (err) return res.status(500).json({ message: 'Something went wrong to see table' })
-        const tables = tavoli
-        connection.query(sqlBooking, (err, prenotazioni) => {
-            if (err) return res.status(500).json({ message: 'Somthing went wrong to see Bookings' })
-            const bookings = prenotazioni
-            connection.query(sqlRooms, (err, sale) => {
-                if (err) return res.status(500).json({ message: 'Somthing went wrong to see rooms' })
-                const rooms = sale
-                const room = rooms.map(room => {
-                    const table = tables.filter(table => table.id_sala == room.id)
-                    const totalSeat = table.reduce((sum, table) => sum + table.posti, 0)
+    connection.query(sql, (err, result) => {
+        if (err) return res.status(500).json({ message: 'Somthing went wrong' })
+        const rooms = result.reduce((allRooms, index) => {
 
-                    return {
-                        ...room,
-                        table,
-                        totalSeat
-                    }
+            const existingRoom = allRooms.find(room => room.room_id === index.room_id)
 
+            if (existingRoom) {
+
+                existingRoom.table.push({
+                    table_id: index.table_id,
+                    seats: index.seats,
                 })
-                res.status(200).json({
-                    data: room,
-                    count: room.length
+            } else {
+
+                allRooms.push({
+                    room_id: index.room_id,
+                    room_name: index.room_name,
+                    table: [{
+                        table_id: index.table_id,
+                        seats: index.seats,
+                    }],
+                    total_seats: index.total_seats,
                 })
-
-            })
-
-
+            }
+            return allRooms
+        }, [])
+        res.status(200).json({
+            data: rooms,
+            count: rooms.length
         })
+
+
     })
+
+
 }
 
 module.exports = {
