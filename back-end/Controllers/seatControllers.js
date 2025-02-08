@@ -36,9 +36,13 @@ function indexSeat(req, res) {
             const bookings = result
             const roomsData = rooms.map(room => {
 
-                const totalBookedSeats = bookings.filter(booking => booking.sala == room.room_id).reduce((allSeat, booking) => allSeat + booking.posti, 0)
+                const bookingsLunch = bookings.filter(booking => booking.sala == room.room_id).filter(booking => parseInt(booking.orario_prenotazione.split(':')[0], 10) <= 14).reduce((allSeat, booking) => allSeat + booking.posti, 0)
+                const bookingsDinner = bookings.filter(booking => booking.sala == room.room_id).filter(booking => parseInt(booking.orario_prenotazione.split(':')[0], 10) >= 18).reduce((allSeat, booking) => allSeat + booking.posti, 0)
 
-                const availableSeats = room.total_seats - totalBookedSeats
+                const availableSeats = {
+                    lunch: room.total_seats - bookingsLunch,
+                    dinner: room.total_seats - bookingsDinner,
+                }
                 return {
                     ...room,
                     availableSeats,
