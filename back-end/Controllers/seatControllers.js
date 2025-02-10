@@ -36,9 +36,15 @@ function indexSeat(req, res) {
             const bookings = result
             const roomsData = rooms.map(room => {
 
-                const availableSeats = {
-                    lunch: room.total_seats - countBookingsSeat(bookingsLunch(bookings, room)),
-                    dinner: room.total_seats - countBookingsSeat(bookingsDinner(bookings, room)),
+                const bookingsData = {
+                    booking: {
+                        lunch: bookingsLunch(bookings, room),
+                        dinner: bookingsDinner(bookings, room)
+                    },
+                    availableSeats: {
+                        lunch: room.total_seats - countBookingsSeat(bookingsLunch(bookings, room)),
+                        dinner: room.total_seats - countBookingsSeat(bookingsDinner(bookings, room)),
+                    },
                 }
 
                 function bookingsLunch(booking, room) {
@@ -60,25 +66,39 @@ function indexSeat(req, res) {
 
                 return {
                     ...room,
-                    availableSeats,
+                    bookingsData,
+
                 }
             })
+
+            console.log('quello che dovrebbe andare dentro', roomsData[0].bookingsData.booking.lunch);
+            console.log('di base arriva questo', bookings);
+
+
+
             let firstTables = [...roomsData[0].table]
 
-            const firstFind = firstTables.find(table => table.seats <= bookings[0].posti)
             bookings.forEach(booking => {
                 if (booking.posti <= 2) {
                     const tavoloTrovato = firstTables.find(table => table.seats <= booking.posti)
                     firstTables = firstTables.filter(table => table.table_id !== tavoloTrovato.table_id)
+                    console.log('prenotazione posti:', booking.posti);
+                    console.log('tavolo:', tavoloTrovato);
+
+
                     return firstTables
 
                 } else if (booking.posti <= 4) {
                     const tavoloTrovato = firstTables.find(table => table.seats <= booking.posti)
                     firstTables = firstTables.filter(table => table.table_id !== tavoloTrovato.table_id)
+                    console.log('prenotazione posti:', booking.posti);
+                    console.log('tavolo:', tavoloTrovato);
                     return firstTables
                 } else if (booking.posti <= 6) {
                     const tavoloTrovato = firstTables.find(table => table.seats <= booking.posti)
                     firstTables = firstTables.filter(table => table.table_id !== tavoloTrovato.table_id)
+                    console.log('prenotazione posti:', booking.posti);
+                    console.log('tavolo:', tavoloTrovato);
                     return firstTables
                 } else {
                     let rest = booking.posti - 6
@@ -108,8 +128,7 @@ function indexSeat(req, res) {
                 }
             })
 
-            let tavolidisonibili = firstTables.filter(table => table.table_id !== firstFind.table_id)
-            console.log('disponibili', tavolidisonibili, 'tutti', roomsData[0].table);
+            console.log('disponibili', firstTables, 'tutti', roomsData[0].table);
 
 
             res.status(200).json({
