@@ -66,7 +66,7 @@ function indexSeat(req, res) {
             let firstTables = [...roomsData[0].table]
 
             const firstFind = firstTables.find(table => table.seats <= bookings[0].posti)
-            const tavolidisponibilissimi = bookings.map(booking => {
+            bookings.forEach(booking => {
                 if (booking.posti <= 2) {
                     const tavoloTrovato = firstTables.find(table => table.seats <= booking.posti)
                     firstTables = firstTables.filter(table => table.table_id !== tavoloTrovato.table_id)
@@ -107,7 +107,6 @@ function indexSeat(req, res) {
                     }
                 }
             })
-            console.log('firstTable:', tavolidisponibilissimi);
 
             let tavolidisonibili = firstTables.filter(table => table.table_id !== firstFind.table_id)
             console.log('disponibili', tavolidisonibili, 'tutti', roomsData[0].table);
